@@ -2,23 +2,22 @@
 #define CELL_H
 #include <iostream>
 #include <string>
-#include <memory>
-#include "coordinate.h"
+//#include "coordinate.h"
 
-class Cell {
-  int x;
-  int y;
-  std::unique_ptr<GraphicDisplay> gd;
-  std::unique_ptr<TextDisplay> td;
-  std::string type;
+class Cell : public Subject {
+  const int row, col; //coordinates of cell in the graphicdisplay
+  string blockType = "None"; //type of block the cell belongs to
+
+
 public:
-  Cell();
-  std::string getType();
-  Coordinate getCoordinate();
-  void set();
-  void unset();
-  bool isOccupied();
-  void draw();
+  Cell(int r, int c); //constructor
+
+  string getBlockType(); //returns the type of block the cell belongs to
+  //Coordinate getCoordinate(int r, int c);
+  void setBlockType(Block b); //sets the blockType field from Block b
+  void unsetBlockType(); //unsets the blockType field to None
+  bool isOccupied(); //checks if the cell belongs to any Block
+
 };
 
 #endif

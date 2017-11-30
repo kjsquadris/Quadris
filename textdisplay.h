@@ -2,16 +2,20 @@
 #define TEXTDISPLAY_H
 #include <iostream>
 #include <vector>
+#include "observer.h"
 
-
-class TextDisplay {
+class TextDisplay: public Observer{
   std::vector<std::vector<char>> theDisplay;
+  string nextBlock;
+  int HiScore;
+  int curScore;
 
 public:
  TextDisplay();
- void drawCell();
- void drawScore();
- void clear();
+
+ string setNextBlock(Block *b);
+ void updateScore(Score s);
+ void notify(Subject &fromCell);
 
  friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);
 

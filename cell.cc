@@ -6,39 +6,31 @@
 using namespace std;
 
 //constructor
-Cell::Cell(int x, int y) : x{x}, y{y} {
-  type = "None";
-}
+Cell::Cell(int r, int c) : row{r}, col{c}, blockType{"None"} {}
 
 // retrieve the type of block cell belongs to
-string Cell::getType() {
-  return type;
+string Cell::getBlockType() {
+  return blockType;
 }
 
 // retrieve the coordinate (x,y)
 Coordinate Cell::getCoordinate() {
-  Coordinate cd = {x, y};
+  Coordinate cd = {row, col};
   return cd;
 }
 
-void Cell::set(string s) {
-  type = s;
+void Cell::setBlockType(string b) {
+  blockType = b;
 }
 
-void Cell::unset() {
-  type = "None";
+void Cell::unsetBlockType() {
+  blockType = "None";
 }
 
 bool Cell::isOccupied() {
-  if (type == "None") {
+  if (blockType == "None") {
     return false;
   } else {
     return true;
   }
-}
-
-// notify textdisplay and graphicsdisplay
-void Cell::draw() {
-  td->drawCell();
-  gd->drawCell();
 }

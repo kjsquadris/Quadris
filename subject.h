@@ -10,7 +10,8 @@ class Subject {
  public:
   void attach(Observer *o);
   void notifyObservers();
-  virtual Block getBlockType() = 0;
+  virtual string getBlockType() = 0;
+  virtual Coordinate getCoord() = 0;
 };
 
 

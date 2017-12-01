@@ -18,7 +18,7 @@ public:
 
   void setNextBlock(Block *b);
   void updateScore(Score s);
-  void notify(Subject &fromCell);
+  void notify(Subject &fromCell) override;
 };
 
 

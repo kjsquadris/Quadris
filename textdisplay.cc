@@ -2,8 +2,9 @@
 
 using namespace std;
 
-TextDisplay::TextDisplay(int level, int score, int HiScore, string next)
-level{level}, score{0} HiScore{HiScore}, next{nullptr} { //constructor
+TextDisplay::TextDisplay(string next, Score sc, Level lv) next{nullptr} { //constructor
+  this->sc = make_unique<Score>(sc);
+  this->lv = make_unique<Level>(lv);
   int i, j;
   for (i = 0; i < 18; ++i) {
     vector <char> row;
@@ -16,14 +17,9 @@ level{level}, score{0} HiScore{HiScore}, next{nullptr} { //constructor
 }
 
 string Textdisplay::getNextBlock(){return next;}
-int Textdisplay::getHiScore(){return HiScore;}
-int Textdisplay::getCurrScore(){return score;}
-int Textdisplay::getLevel(){return level;}
-
-void updateNextBlock(string s) {next = s;}
-void updateCurrLevel(int lv) {level = lv;}
-void updateCurrScore(int sc) {score = sc;}
-void updateHiScore(int hs) {HiScore = hs;}
+int Textdisplay::getHiScore(){return sc.getHiScore();}
+int Textdisplay::getCurrScore(){return sc.getCurrentScore();}
+int Textdisplay::getLevel(){return lv.getLevel();}
 
 
 void Textdisplay::notify(Subject &FromCell) {

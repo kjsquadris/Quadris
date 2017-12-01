@@ -7,8 +7,8 @@
 
 class Block {
   // std::vector<std::unique_ptr<Cell>> cells;
-  std::vector<Cell*> cells;
   Grid* g;
+  std::vector<Cell*> cells;
   int counter = 0;
   int level;
   std::string type;

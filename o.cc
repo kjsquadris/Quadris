@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void O::init(Grid *g, int lvl) {
+O::O(Grid *gameGrid, int lvl) : g{gameGrid}, level{lvl} {
   Cell* c1 = &(g->getCell(3,0));
   cells.emplace_back(c1);
   Cell* c2 = &(g->getCell(3,1));
@@ -12,7 +12,6 @@ void O::init(Grid *g, int lvl) {
   cells.emplace_back(c3);
   Cell* c4 = &(g->getCell(4,1));
   cells.emplace_back(c4);
-  level = lvl;
   type = "oBlock";
   set();
   draw();

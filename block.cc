@@ -107,6 +107,7 @@ void Block::moveLeft() {
       // cells[i].reset(new Cell(gridcells[x][y]));
       cells[i] = &(g->getCells()[x][y]);
     }
+    leftRef.x -= 1; //move the coords of the left reference one to the left
     set(type);
 
     draw();
@@ -128,6 +129,7 @@ void Block::moveRight() {
       // cells[i].reset(new Cell(gridcells[x][y]));
       cells[i] = &(g->getCells()[x][y]);
     }
+    leftRef.x += 1; //move the coords of the left reference one to the right
     set(type);
 
     draw();
@@ -149,6 +151,7 @@ bool Block::moveDown(string cmd) {
       // cells[i].reset(new Cell(gridcells[x][y]));
       cells[i] = &(g->getCells()[x][y]);
     }
+    leftRef.y += 1; //move the coords of the left reference down by one
     set(type);
 
     // draw right away if it's just a down move

@@ -12,6 +12,7 @@ O::O(Grid *gameGrid, int lvl) : g{gameGrid}, level{lvl} {
   cells.emplace_back(c3);
   Cell* c4 = &(g->getCell(4,1));
   cells.emplace_back(c4);
+  
   type = "oBlock";
   set();
   draw();

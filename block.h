@@ -8,6 +8,7 @@
 class Block {
   // std::vector<std::unique_ptr<Cell>> cells;
   Grid* g;
+  Coordinate leftRef = {4, 0};
   std::vector<Cell*> cells;
   int counter = 0;
   int level;

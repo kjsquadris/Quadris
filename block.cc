@@ -54,7 +54,7 @@ bool Block::inBlock(int x, int y) {
 
 // check if the cell the block is trying to shift into is occupied or not
 // (only checks for left, right, down shift)
-bool Block::isValidShift(Grid *g, string dir) {
+bool Block::isValidShift(string dir) {
   vector<Coordinate> coords = createCoords(); // hold the coordinates of curr cells
   vector<vector<Cell>> gridcells = g->getCells(); // hold the cells of the grid
 
@@ -93,7 +93,7 @@ bool Block::isValidShift(Grid *g, string dir) {
 }
 
 // move the block to the left
-void Block::moveLeft(Grid *g) {
+void Block::moveLeft() {
   if (isValidShift("left")) {
     unset(); // unset the current cells of the block
 
@@ -114,7 +114,7 @@ void Block::moveLeft(Grid *g) {
 }
 
 // move the block to the right
-void Block::moveRight(Grid *g) {
+void Block::moveRight() {
   if (isValidShift("right")) {
     unset();
 
@@ -135,7 +135,7 @@ void Block::moveRight(Grid *g) {
 }
 
 // move the block down
-bool Block::moveDown(Grid *g, string cmd) {
+bool Block::moveDown(string cmd) {
   if (isValidShift("down")) {
     unset();
 
@@ -163,8 +163,8 @@ bool Block::moveDown(Grid *g, string cmd) {
 }
 
 // move the block as far down as it can go without overtaking another cell
-void Block::drop(Grid *g) {
-  while (moveDown(g, "drop")) {
+void Block::drop() {
+  while (moveDown("drop")) {
     continue;
   }
   draw();

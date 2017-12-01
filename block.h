@@ -8,6 +8,7 @@
 class Block {
   // std::vector<std::unique_ptr<Cell>> cells;
   std::vector<Cell*> cells;
+  Grid* g;
   int counter = 0;
   int level;
   std::string type;
@@ -27,9 +28,9 @@ public:
   virtual std::vector<Coordinate> createCoords();
   virtual bool inBlock(int, int);
   virtual bool isValidShift(std::string dir);  
-  virtual void moveLeft(Grid *);
-  virtual void moveRight(Grid *);
-  virtual void moveDown(Grid *, std::string cmd = "down");
+  virtual void moveLeft();
+  virtual void moveRight();
+  virtual void moveDown(std::string cmd = "down");
   virtual void drop();
   virtual void draw();
   virtual void set(std::string);

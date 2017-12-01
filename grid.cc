@@ -8,20 +8,10 @@ using namespace std;
 
 Grid::~Grid(){
   theGrid.clear();
-  delete td;
-  delete ob;
-  delete sc; //not sure if i need this or delete lvl
-  delete lvl;
 }
 
-void Grid::setObserver(Observer *ob) {this->ob = ob;}
 
-void Grid::init(){
-  int l = lvl->getLevel();
-  int s = sc->getCurrentScore();
-  int hs = sc->getHiscore();
-
-  td = new TextDisplay(l, s, hs, nullptr); //initialize textdisplay obj
+void Grid::init(TextDisplay *td, Observer *ob){
 
   //set up empty grid
   for (int i = 0; i < 18; ++i) {

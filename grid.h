@@ -12,16 +12,11 @@
 
 class Grid {
   std::vector<std::vector<Cell>> theGrid; //actual Grid
-  TextDisplay *td = nullptr; //text display
-  Observer *ob = nullptr; //for graphics
-  Score *sc = nullptr; //score
-  Level *lvl = nullptr; //level
 
 public:
   ~Grid(); //destructor
 
-  void setObserver(Observer *ob);
-  void init();
+  void init(TextDisplay *td, Observer *ob);
   void rowScore(); //updates score based on rows cleared
   void blockScore(Block b); //updates score when block is cleared
   void setBlockType(int r, int c, Block b); //calls cell's setBlockType at {r, c}

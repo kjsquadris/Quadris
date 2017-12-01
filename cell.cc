@@ -14,17 +14,19 @@ string Cell::getBlockType() {
 }
 
 // retrieve the coordinate (x,y)
-Coordinate Cell::getCoordinate() {
+Coordinate Cell::getCoord() {
   Coordinate cd = {row, col};
   return cd;
 }
 
 void Cell::setBlockType(string b) {
   blockType = b;
+  notifyObservers();
 }
 
 void Cell::unsetBlockType() {
   blockType = "None";
+  notifyObservers();
 }
 
 bool Cell::empty() {

@@ -13,7 +13,7 @@ public:
   Cell(int r, int c); //constructor. takes in 2 int to set the coord
 
   string getBlockType(); //returns the type of block the cell belongs to
-  Coordinate getCoordinate(); //return coord struct
+  Coordinate getCoord(); //return coord struct
   increment counter
   void setBlockType(string b); //sets the blockType field from Block b
   void unsetBlockType(); //unsets the blockType field to None

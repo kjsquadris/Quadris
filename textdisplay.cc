@@ -23,27 +23,29 @@ int Textdisplay::getLevel(){return lv.getLevel();}
 
 
 void Textdisplay::notify(Subject &FromCell) {
-  int r = FromCell.getCoordinate().row;
-  int c = FromCell.getCoordinate().col;
+  int r = FromCell.getCoord().row;
+  int c = FromCell.getCoord().col;
 
-  if (FromCell.getBlockType() == "JBlock") { //J
+  if (FromCell.getBlockType() == "jBlock") { //J
     theDisplay[r][c] = 'J';
-  } else if (FromCell.getBlockType() == "OBlock") { //O
+  } else if (FromCell.getBlockType() == "oBlock") { //O
     theDisplay[r][c] = 'O';
-  } else if (FromCell.getBlockType() == "TBlock") { //T
+  } else if (FromCell.getBlockType() == "tBlock") { //T
     theDisplay[r][c] = 'T';
-  } else if (FromCell.getBlockType() == "SBlock") { //S
+  } else if (FromCell.getBlockType() == "sBlock") { //S
     theDisplay[r][c] = 'S';
-  } else if (FromCell.getBlockType() == "ZBlock") { //Z
+  } else if (FromCell.getBlockType() == "zBlock") { //Z
     theDisplay[r][c] = 'Z';
-  } else if (FromCell.getBlockType() == "LBlock") { //L
+  } else if (FromCell.getBlockType() == "lBlock") { //L
     theDisplay[r][c] = 'L';
-  } else if (FromCell.getBlockType() == "IBlock") { //I
+  } else if (FromCell.getBlockType() == "iBlock") { //I
     theDisplay[r][c] = 'I';
   } else { //None
     theDisplay[r][c] = ' ';
   }
 }
+
+ void textdisplay::updateNext(string b){next = b;}
 
 
 ostream &operator<<(std::ostream &out, const TextDisplay &td){

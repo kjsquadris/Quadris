@@ -5,9 +5,9 @@ class Score {
   int currentScore = 0;
   int highScore = 0;
 public:
-  int blockClear();
-  int rowClear();
-  void updateScore();
+  int blockClear(Block);
+  int rowClear(int, int);
+  void updateScore(int);
   void restart();
   void reset();
   int getCurrentScore();

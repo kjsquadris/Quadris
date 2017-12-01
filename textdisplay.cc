@@ -2,10 +2,8 @@
 
 using namespace std;
 
-//need destructor?
-
 TextDisplay::TextDisplay(int level, int score, int HiScore, string next)
-level{level}, score{score} HiScore{HiScore}, next{next} { //constructor
+level{level}, score{0} HiScore{HiScore}, next{nullptr} { //constructor
   int i, j;
   for (i = 0; i < 18; ++i) {
     vector <char> row;
@@ -21,6 +19,11 @@ string Textdisplay::getNextBlock(){return next;}
 int Textdisplay::getHiScore(){return HiScore;}
 int Textdisplay::getCurrScore(){return score;}
 int Textdisplay::getLevel(){return level;}
+
+void updateNextBlock(string s) {next = s;}
+void updateCurrLevel(int lv) {level = lv;}
+void updateCurrScore(int sc) {score = sc;}
+void updateHiScore(int hs) {HiScore = hs;}
 
 
 void Textdisplay::notify(Subject &FromCell) {
@@ -56,7 +59,7 @@ ostream &operator<<(std::ostream &out, const TextDisplay &td){
     out << _ << endl;
   }
 
-  for (int r = 0; r < 18; ++r) { //actual board
+  for (int r = 0; r < 18; ++r) { //print out actual board
     if (r != 0) {
       out << endl;
     }

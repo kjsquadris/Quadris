@@ -12,9 +12,13 @@ class TextDisplay: public Observer{
 public:
  TextDisplay(int level, int score, int HiScore, string next); //constructor takes in the highscore
 
+ void updateNextBlock(string s); //update the next field. s is the string in one of the Block objects
  string getNextBlock(); //get the next block that will appear
- int getHiScore(); //get the sc
+ void updateHiScore(int hs); //update HiScore field. hs is new HiScore from Score object
+ int getHiScore(); //get the HiScore
+ void updateCurrScore(int sc); //update score field. sc is score from Score object
  int getCurrScore(); //get current score
+ void updateCurrLevel(int lv); //update level field. lv is level from Level object
  int getLevel(); //get the current level
  void notify(Subject &fromCell); //receives notification from Cell
 

@@ -27,7 +27,7 @@ void Cell::unsetBlockType() {
   blockType = "None";
 }
 
-bool Cell::isOccupied() {
+bool Cell::empty() {
   if (blockType == "None") {
     return false;
   } else {

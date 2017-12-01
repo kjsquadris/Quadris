@@ -7,20 +7,7 @@
 using namespace std;
 
 // destructor
-Block::~Block() {
-  // change all cell ptrs in block to point at nullptr
-  // before popping them off the vector
-  for (int i = 0; i < 4; ++i) {
-    cells.rbegin()[0] = nullptr;
-    cells.pop_back();
-  }
-  g = nullptr; // set the grid pointer to nullptr
-}
-
-// set g pointer to point at the grid
-void Block::setGrid(unique_ptr<Grid> gameGrid) {
-  g = gameGrid;
-}
+Block::~Block() {}
 
 // returns the level the block was created in
 int Block::getLevel() {
@@ -28,7 +15,7 @@ int Block::getLevel() {
 }
 
 // returns the cells of the block
-vector<unique_ptr<Cell>> Block::getCells() {
+vector<Cell*> Block::getCells() {
   return cells;
 }
 
@@ -67,15 +54,16 @@ bool Block::inBlock(int x, int y) {
 
 // check if the cell the block is trying to shift into is occupied or not
 // (only checks for left, right, down shift)
-bool Block::isValidShift(string dir) {
+bool Block::isValidShift(Grid *g, string dir) {
   vector<Coordinate> coords = createCoords(); // hold the coordinates of curr cells
   vector<vector<Cell>> gridcells = g->getCells(); // hold the cells of the grid
 
   bool valid = true;
-  if ((dir != "left") && (dir != "right") && (dir != "down") {
+  if ((dir != "left") && (dir != "right") && (dir != "down")) {
     return false;
   } else {
     for (int i = 0; i < 4; ++i) {
+      // find coordinates of the new potential cell of the block
       int x = coords[i].row;
       int y = coords[i].col;
       if (dir == "left") {
@@ -105,18 +93,19 @@ bool Block::isValidShift(string dir) {
 }
 
 // move the block to the left
-void Block::moveLeft() {
+void Block::moveLeft(Grid *g) {
   if (isValidShift("left")) {
     unset(); // unset the current cells of the block
 
     // reassign the cells of the block
-    vector<vector<Cell>> gridcells = g->getCells(); // holds the grid's cells
+    // vector<vector<Cell>> gridcells = g->getCells(); // holds the grid's cells
 
     // move to the left
     for (int i = 0; i < 4; ++i) {
       int x = cells[i]->x - 1;
       int y = cells[i]->y;
-      cells[i].reset(new Cell(gridcells[x][y]));
+      // cells[i].reset(new Cell(gridcells[x][y]));
+      cells[i] = &(g->getCells()[x][y]);
     }
     set(type);
 
@@ -125,18 +114,19 @@ void Block::moveLeft() {
 }
 
 // move the block to the right
-void Block::moveRight() {
+void Block::moveRight(Grid *g) {
   if (isValidShift("right")) {
     unset();
 
     // reassign the cells of the block
-    vector<vector<Cell>> gridcells = g->getCells(); // holds the grid's cells
+    // vector<vector<Cell>> gridcells = g->getCells(); // holds the grid's cells
 
     // move to the right
     for (int i = 0; i < 4; ++i) {
       int x = cells[i]->x + 1;
       int y = cells[i]->y;
-      cells[i].reset(new Cell(gridcells[x][y]));
+      // cells[i].reset(new Cell(gridcells[x][y]));
+      cells[i] = &(g->getCells()[x][y]);
     }
     set(type);
 
@@ -145,18 +135,19 @@ void Block::moveRight() {
 }
 
 // move the block down
-bool Block::moveDown(string cmd) {
+bool Block::moveDown(Grid *g, string cmd) {
   if (isValidShift("down")) {
     unset();
 
     // reassign the cells of the block
-    vector<vector<Cell>> gridcells = g->getCells(); // holds the grid's cells
+    // vector<vector<Cell>> gridcells = g->getCells(); // holds the grid's cells
 
     // move down
     for (int i = 0; i < 4; ++i) {
       int x = cells[i]->x;
       int y = cells[i]->y + 1;
-      cells[i].reset(new Cell(gridcells[x][y]));
+      // cells[i].reset(new Cell(gridcells[x][y]));
+      cells[i] = &(g->getCells()[x][y]);
     }
     set(type);
 
@@ -172,8 +163,8 @@ bool Block::moveDown(string cmd) {
 }
 
 // move the block as far down as it can go without overtaking another cell
-void Block::drop() {
-  while (moveDown("drop")) {
+void Block::drop(Grid *g) {
+  while (moveDown(g, "drop")) {
     continue;
   }
   draw();

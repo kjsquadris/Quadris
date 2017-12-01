@@ -6,8 +6,8 @@
 #include "coordinate.h"
 
 class Block {
-  std::vector<std::unique_ptr<Cell>> cells;
-  std::unique_ptr<Grid> g; // points to the grid
+  // std::vector<std::unique_ptr<Cell>> cells;
+  std::vector<Cell*> cells;
   int counter = 0;
   int level;
   std::string type;
@@ -20,16 +20,16 @@ public:
 
   // default methods for all blocks
   virtual ~Block();
-  virtual void setGrid(std::unique_ptr<Grid>);
   virtual int getLevel();
-  virtual std::vector<std::unique_ptr<Cell>> getCells();
+  // virtual std::vector<std::unique_ptr<Cell>> getCells();
+  virtual std::vector<Cell*> getCells();
   virtual bool isEmpty();
   virtual std::vector<Coordinate> createCoords();
   virtual bool inBlock(int, int);
   virtual bool isValidShift(std::string dir);  
-  virtual void moveLeft();
-  virtual void moveRight();
-  virtual void moveDown(std::string cmd = "down");
+  virtual void moveLeft(Grid *);
+  virtual void moveRight(Grid *);
+  virtual void moveDown(Grid *, std::string cmd = "down");
   virtual void drop();
   virtual void draw();
   virtual void set(std::string);

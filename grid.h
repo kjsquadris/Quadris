@@ -17,7 +17,7 @@ public:
   ~Grid(); //destructor
 
   void init(TextDisplay *td, Observer *ob);
-  void rowScore(); //updates score based on rows cleared
+  void rowScore(Level *lvl, Score *sc); //updates score based on rows cleared
   void blockScore(Block b); //updates score when block is cleared
   void setBlockType(int r, int c, Block b); //calls cell's setBlockType at {r, c}
   void unsetBlockType(int r, int c); //calls cell's unsetBlockType at {r, c}

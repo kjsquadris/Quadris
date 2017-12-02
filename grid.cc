@@ -32,7 +32,7 @@ void Grid::init(TextDisplay *td, Observer *ob){
   }
 }
 
-void Grid::rowScore(){//updates score based on rows cleared
+void Grid::rowScore(Level *lvl, Score *sc){//updates score based on rows cleared
   int track = 0;
   for (auto row : theGrid) {  //goes through each row of the grid
     bool empCell = false;

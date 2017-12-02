@@ -32,12 +32,16 @@ void Grid::init(TextDisplay *td, Observer *ob){
   }
 }
 
+void setGameOver(bool over) {GameOver = over;}
+
+bool getGameOver() {return GameOver;}
+
 void Grid::rowScore(Level *lvl, Score *sc){//updates score based on rows cleared
   int track = 0;
   for (auto row : theGrid) {  //goes through each row of the grid
     bool empCell = false;
     for (auto cell : row) { //goes through all cells in a row
-      if (cell.getBlockType == "None"){ //checks for cell not occupied by block
+      if (cell.getBlockType() == "None"){ //checks for cell not occupied by block
         empCell = true;
         break;
       }
@@ -50,9 +54,9 @@ void Grid::rowScore(Level *lvl, Score *sc){//updates score based on rows cleared
   }
 }
 
-void Grid::blockScore(Block b) {
+void Grid::blockScore(Score *sc, Block b) {
   if(b.isEmpty() == true) {
-    sc->blockClear(b)
+    sc->blockClear(b);
   }
 }
 
@@ -62,9 +66,4 @@ void Grid::setBlockType(int r, int c, Block b){
 
 void Grid::unsetBlockType(int r, int c){
   Grid[r][c].unsetBlockType();
-}
-
-std::ostream &operator<<(std::ostream &out, const Grid &g) {
-  out << *(g.td) << endl;
-  return out;
 }

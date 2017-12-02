@@ -19,6 +19,7 @@ Coordinate Cell::getCoord() {
   return cd;
 }
 
+
 void Cell::setBlockType(string b) {
   blockType = b;
   notifyObservers();

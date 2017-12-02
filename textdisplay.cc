@@ -2,9 +2,13 @@
 
 using namespace std;
 
-TextDisplay::TextDisplay(string next, Score sc, Level lv) next{nullptr} { //constructor
-  this->sc = make_unique<Score>(sc);
-  this->lv = make_unique<Level>(lv);
+TextDisplay::TextDisplay(Board b) { //constructor
+
+  string next = b.getNext();
+  int currScore = b.s->getCurrentScore();
+  int HiScore = b.s->getHiScore();
+  int lvl = b.getLevel();
+
   int i, j;
   for (i = 0; i < 18; ++i) {
     vector <char> row;
@@ -17,10 +21,11 @@ TextDisplay::TextDisplay(string next, Score sc, Level lv) next{nullptr} { //cons
 }
 
 string Textdisplay::getNextBlock(){return next;}
-int Textdisplay::getHiScore(){return sc.getHiScore();}
-int Textdisplay::getCurrScore(){return sc.getCurrentScore();}
-int Textdisplay::getLevel(){return lv.getLevel();}
+int Textdisplay::getHiScore(){return HiScore;}
+int Textdisplay::getCurrScore(){return currScore;}
+int Textdisplay::getLevel(){return lvl;}
 
+void TextDisplay::updateNext(string b){next = b;}
 
 void Textdisplay::notify(Subject &FromCell) {
   int r = FromCell.getCoord().row;
@@ -44,8 +49,6 @@ void Textdisplay::notify(Subject &FromCell) {
     theDisplay[r][c] = ' ';
   }
 }
-
- void textdisplay::updateNext(string b){next = b;}
 
 
 ostream &operator<<(std::ostream &out, const TextDisplay &td){
@@ -72,24 +75,24 @@ ostream &operator<<(std::ostream &out, const TextDisplay &td){
 
   out << "Next:" << endl;
 
-  if (td.getNextBlock() == "JBlock") { //prints out next block
+  if (td.getNextBlock() == "jBlock") { //prints out next block
     out << 'J' << endl;
     out << 'JJJ' << endl;
-  } else if (td.getNextBlock() == "OBlock") {
+  } else if (td.getNextBlock() == "oBlock") {
     out << 'OO' << endl;
     out << 'OO' << endl;
-  } else if (td.getNextBlock() == "TBlock") {
+  } else if (td.getNextBlock() == "tBlock") {
     out << 'TTT' << endl;
     out << ' T ' << endl;
-  } else if (td.getNextBlock() == "LBlock") {
+  } else if (td.getNextBlock() == "lBlock") {
     out << '  L' << endl;
     out << 'LLL' << endl;
-  } else if (td.getNextBlock() == "IBlock") {
+  } else if (td.getNextBlock() == "iBlock") {
     out << 'IIII' << endl;
-  } else if (td.getNextBlock() == "SBlock") {
+  } else if (td.getNextBlock() == "sBlock") {
     out << ' SS' << endl;
     out << 'SS' << endl;
-  } else if (td.getNextBlock() == "ZBlock") {
+  } else if (td.getNextBlock() == "zBlock") {
     out << 'ZZ' << endl;
     out << ' ZZ' << endl;
   }

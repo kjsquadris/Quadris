@@ -9,6 +9,7 @@ class Subject {
   std::vector<Observer*> observers; //vector of observer pointers (Textdisplay is Observer of 1 Cell)
  public:
   void attach(Observer *o);
+  void unattach();
   void notifyObservers();
   virtual string getBlockType() = 0;
   virtual Coordinate getCoord() = 0;
@@ -18,6 +19,11 @@ class Subject {
 
 void Subject::attach(Observer *o) { //pushes an o to a Cell
   observers.emplace_back(o);
+}
+
+void Subject::unattach() {
+  observers.pop_back(); //pops off graphicdisplay observer
+  observers.pop_back(); //pops off textdisplay observer
 }
 
 void Subject::notifyObservers() {

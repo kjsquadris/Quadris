@@ -8,10 +8,18 @@ using namespace std;
 
 Grid::~Grid(){
   theGrid.clear();
+  delete td;
+  delete ob;
 }
 
+void setObTxt(TextDisplay *td, Observer *ob) {
+  this->ob = ob;
+  this->td = td;
+}
 
-void Grid::init(TextDisplay *td, Observer *ob){
+void Grid::init(TextDisplay *t, Observer *o){
+  td = t;
+  ob = o;
 
   //set up empty grid
   for (int i = 0; i < 18; ++i) {
@@ -32,30 +40,51 @@ void Grid::init(TextDisplay *td, Observer *ob){
   }
 }
 
+std::vector<std::vector<Cells>> getCells() {return theGrid;}
+
+
+void clearRow(int r) { //row start at 0 or 1?
+  //unattach txtdisplay and graphicdisplay observer at r
+  for (int i = 0; i < 11; ++i) {
+    theGrid[r][i].unattach();
+  }
+
+  theGrid[r].clear(); //clears all the cells in vector position r
+  theGrid.erase(theGrid.begin() + r); //erase the vector at r and all elements
+
+  //call movedown method in cells on the vector<vector <Cells>> above r
+  for (int i = r - 1; i >= 0; --i) {
+    for (int j = 0; j < 11; ++j) {
+      theGrid[i][j].moveDown();
+    }
+  }
+  //insert in very top row
+  vector<Cells> topRow;
+  for (int i = 0; i < 11; ++i) {
+    Cell c{0, i};
+    topRow.emplace_back(c);
+  }
+  theGrid.insert(theGrid.begin(), topRow); //insert it at the beginning of vector
+
+  //attach txtdisplay and graphicdisplay observers to very top row
+  for (int i = 0; i < 11; ++i) {
+    theGrid[0][i].attach(td);
+    theGrid[0][i].attach(ob);
+  }
+
+}
+
 void setGameOver(bool over) {GameOver = over;}
 
 bool getGameOver() {return GameOver;}
 
-int Grid::rowScore(){//updates score based on rows cleared
-  int track = 0;
-  for (auto row : theGrid) {  //goes through each row of the grid
-    bool empCell = false;
-    for (auto cell : row) { //goes through all cells in a row
-      if (cell.getBlockType() == "None"){ //checks for cell not occupied by block
-        empCell = true;
-        break;
-      }
+bool Grid::isrowFull(int r) {
+  for (int i = 0; i < 11; ++i) {
+    if (theGrid[r][i].getBlockType() == "None") {
+      return false;
     }
-    if (empCell == false) ++track; //after going through all cells in a row, if none is None, increase track by 1
   }
-  return track;
-}
-i
-
-void Grid::blockScore(Score *sc, Block *b) {
-  if(b->isEmpty() == true) {
-    sc->blockClear(b);
-  }
+  return true;
 }
 
 /*void Grid::setBlockType(int r, int c, Block b){

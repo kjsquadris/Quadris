@@ -13,15 +13,13 @@ class TextDisplay: public Observer{
   int lvl;
 
 public:
- TextDisplay(Board b); //constructor takes in level and Score.might have issue with next block
+ TextDisplay(Board b); //constructor
 
- void updateNext(string b); //update next block
  string getNextBlock(); //get the next block that will appear
  int getHiScore(); //get the HiScore
  int getCurrScore(); //get current score
  int getLevel(); //get the current level
  void notify(Subject &fromCell); //receives notification from Cell
-
 
 
  friend std::ostream &operator<<(std::ostream &out, const TextDisplay &td);

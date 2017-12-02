@@ -20,20 +20,25 @@ Coordinate Cell::getCoord() {
 }
 
 
-void Cell::setBlockType(string b) {
+void Cell::set(string b) {
   blockType = b;
   notifyObservers();
 }
 
-void Cell::unsetBlockType() {
+void Cell::unset() {
   blockType = "None";
   notifyObservers();
 }
 
-bool Cell::empty() {
+bool Cell::isOccupied() {
   if (blockType == "None") {
     return false;
   } else {
     return true;
   }
+}
+
+void Cell::moveDown() {
+  row+=1;
+  notifyObservers();
 }

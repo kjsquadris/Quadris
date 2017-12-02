@@ -20,12 +20,12 @@ TextDisplay::TextDisplay(Board b) { //constructor
   }
 }
 
+
 string Textdisplay::getNextBlock(){return next;}
 int Textdisplay::getHiScore(){return HiScore;}
 int Textdisplay::getCurrScore(){return currScore;}
 int Textdisplay::getLevel(){return lvl;}
 
-void TextDisplay::updateNext(string b){next = b;}
 
 void Textdisplay::notify(Subject &FromCell) {
   int r = FromCell.getCoord().row;

@@ -12,19 +12,20 @@
 
 class Grid {
   std::vector<std::vector<Cell>> theGrid; //actual Grid
-  //std::map<int, Block*> bmap;
+  TextDisplay *td;
+  Observer *ob; //for graphics
   bool GameOver;
 
 public:
   ~Grid(); //destructor
 
-  void init(TextDisplay *td, Observer *ob);
-  void setGameOver(bool over);
-  bool getGameOver();
-  int rowScore(); //updates score based on rows cleared
-  void blockScore(Score *sc, Block *b); //updates score when block is cleared
-  //void setBlockType(int r, int c, Block b); //calls cell's setBlockType at {r, c}
-  //void unsetBlockType(int r, int c); //calls cell's unsetBlockType at {r, c}
+  void setObTxt(TextDisplay *td, Observer *ob);
+  void init(); //initialize grid
+  std::vector<std::vector<Cells>> getCells(); // return theGrid
+  void clearRow(int r); //clears row at r
+  void setGameOver(bool over); //set GameOver
+  bool getGameOver(); //reutnr GameOver
+  bool isrowFull(int r); //checks if a row is full. r is the row number you wanna check
 
 };
 

@@ -13,9 +13,10 @@ public:
 
   string getBlockType(); //returns the type of block the cell belongs to
   Coordinate getCoord(); //return coord struct
-  void setBlockType(string b); //sets the blockType field from Block b
-  void unsetBlockType(); //unsets the blockType field to None
-  bool empty(); //checks if the cell belongs to any Block
+  void set(string b); //sets the blockType field from Block b
+  void unset(); //unsets the blockType field to None
+  bool isOccupied(); //checks if the cell belongs to any Block
+  void moveDown(); //increases row field by 1
 
 };
 

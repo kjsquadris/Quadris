@@ -9,13 +9,36 @@ using namespace std;
 // destructor
 Block::~Block() {}
 
+// remove cell from the block that will be cleared with a row
+void Block::removeCell(Coordinate c) {
+  for (int i = 0; i < 4; ++i) {
+    if ((cells[i]->row == c.row) && (cells[i]->col == c.col)) {
+      cells.erase(cells.begin()+i);
+      break;
+    }
+  }
+}
+
+// set the heaviness of blocks
+void Block::setHeaviness() {
+  if ((level == 3) || (level == 4)) {
+    heavy = 1;
+  } else {
+    heavy = 0;
+  }
+}
+
+int Block::getHeaviness() {
+  return heavy;
+}
+
 // returns the level the block was created in
 int Block::getLevel() {
   return level;
 }
 
 // returns the cells of the block
-vector<Cell*> Block::getCells() {
+vector<Cell*> Block::getBlockCells() {
   return cells;
 }
 
@@ -31,8 +54,8 @@ vector<Coordinate> Block::createCoords() {
 
   for (int i = 0; i < 4; ++i) {
     Coordinate c;
-    c.x = cells[i]->row;
-    c.y = cells[i]->col;
+    c.row = cells[i]->row;
+    c.col = cells[i]->col;
     coords.emplace_back(c);
   }
   return coords;
@@ -44,7 +67,7 @@ bool Block::inBlock(int x, int y) {
   bool in = false;
 
   for (int i = 0; i < 4; ++i) {
-    if ((coords[i].x == x) && (coords[i].y == y)) {
+    if ((coords[i].row == x) && (coords[i].col == y)) {
       in = true;
       break;
     }
@@ -64,8 +87,8 @@ bool Block::isValidShift(string dir) {
   } else {
     for (int i = 0; i < 4; ++i) {
       // find coordinates of the new potential cell of the block
-      int x = coords[i].x;
-      int y = coords[i].y;
+      int x = coords[i].row;
+      int y = coords[i].col;
       if (dir == "left") {
         y -= 1;
       } else if (dir == "right") {
@@ -93,7 +116,7 @@ bool Block::isValidShift(string dir) {
 }
 
 // shift the block (returns true/false for drop)
-bool Block::shift(string dir) {
+bool Block::shift(string dir, bool isDrop) {
   int x,y;
   if (isValidShift(dir)) {
     for (int i = 0; i < 4; ++i) {
@@ -118,8 +141,7 @@ bool Block::shift(string dir) {
     // down shift - move the coords of the left reference down by one
     if (dir == "down") leftRef.x += 1;
 
-    set(); // set the new cells
-    if (dir != "drop") draw(); // draw the new cells
+    if (!isDrop) set(); // set the new cells
     updateStates();
     return true;
   } else {
@@ -158,8 +180,8 @@ bool Block::isValidRotate(string dir) {
 
   // check if each cell in the next rotation is valid for rot to happen
   for (int i = 0; i < 4; ++i) {
-    x = states[newState][i].x;
-    y = states[newState][i].y;
+    x = states[newState][i].row;
+    y = states[newState][i].col;
     if ((y < 0) || (y > 10) || (x > 17)) { // check if cell is not on board
       valid = false;
       break;
@@ -202,14 +224,25 @@ void Block::rotate(string dir) {
 
     // update the new cells of the block
     for (int i = 0; i < 4; ++i) {
-      x = newCoords[i].x;
-      y = newCoords[i].y;
+      x = newCoords[i].row;
+      y = newCoords[i].col;
       cells[i] = &(g->getCells()[x][y]);
     }
+    // switch the width and height of the block
+    int temp = width;
+    width = height;
+    height = temp;
 
     set(); // set the new blocks
-    draw();
   }
+}
+
+// move the block as far down as it can go without overtaking another cell
+void Block::drop() {
+  while (shift("down", true)) { // continue shifting down until it's not possible
+    continue;
+  }
+  set();
 }
 
 // // move the block to the left
@@ -285,20 +318,12 @@ void Block::rotate(string dir) {
 //   }
 // }
 
-// move the block as far down as it can go without overtaking another cell
-void Block::drop() {
-  while (shift("drop")) { // continue shifting down until it's not possible
-    continue;
-  }
-  draw();
-}
-
-// notify the cells that they've moved
-void Block::draw() {
-  for (int i = 0; i < 4; ++i) {
-    cells[i]->draw();
-  }
-}
+// // notify the cells that they've moved
+// void Block::draw() {
+//   for (int i = 0; i < 4; ++i) {
+//     cells[i]->draw();
+//   }
+// }
 
 // set the cells of block
 void Block::set() {

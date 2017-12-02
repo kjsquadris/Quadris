@@ -16,9 +16,12 @@ class I : public Block {
   int level;
   int currState = 0;
   int numStates = 2;
+  int heaviness;
+  int width = 4;
+  int height = 1;
   std::string type = "iBlock";
 public:
-  I(Grid*, int);
+  I(Grid* gameGrid, int blockid, int lvl);
   void updateStates();
 };
 

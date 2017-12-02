@@ -8,18 +8,14 @@ using namespace std;
 
 Grid::~Grid(){
   theGrid.clear();
-  delete td;
-  delete ob;
 }
 
-void setObTxt(TextDisplay *td, Observer *ob) {
+/*void setObTxt(TextDisplay *td, Observer *ob) {
   this->ob = ob;
   this->td = td;
-}
+}*/
 
-void Grid::init(TextDisplay *t, Observer *o){
-  td = t;
-  ob = o;
+void Grid::init(){
 
   //set up empty grid
   for (int i = 0; i < 18; ++i) {
@@ -30,14 +26,6 @@ void Grid::init(TextDisplay *t, Observer *o){
     }
     theGrid.emplace_back(row);
   }
-
-  //attach td and ob observers
-  for (int r = 0; r < 18; ++r) {
-    for (int c = 0; c < 11; ++c) {
-      theGrid[r][c].attach(td);
-      theGrid[r][c].attach(ob);
-    }
-  }
 }
 
 std::vector<std::vector<Cells>> getCells() {return theGrid;}
@@ -45,9 +33,9 @@ std::vector<std::vector<Cells>> getCells() {return theGrid;}
 
 void clearRow(int r) { //row start at 0 or 1?
   //unattach txtdisplay and graphicdisplay observer at r
-  for (int i = 0; i < 11; ++i) {
+  /*for (int i = 0; i < 11; ++i) {
     theGrid[r][i].unattach();
-  }
+  }*/
 
   theGrid[r].clear(); //clears all the cells in vector position r
   theGrid.erase(theGrid.begin() + r); //erase the vector at r and all elements
@@ -67,10 +55,10 @@ void clearRow(int r) { //row start at 0 or 1?
   theGrid.insert(theGrid.begin(), topRow); //insert it at the beginning of vector
 
   //attach txtdisplay and graphicdisplay observers to very top row
-  for (int i = 0; i < 11; ++i) {
+  /*for (int i = 0; i < 11; ++i) {
     theGrid[0][i].attach(td);
     theGrid[0][i].attach(ob);
-  }
+  }*/
 
 }
 
@@ -87,10 +75,13 @@ bool Grid::isrowFull(int r) {
   return true;
 }
 
-/*void Grid::setBlockType(int r, int c, Block b){
-  Grid[r][c].setBlockType(b.getType());
-}
+std::ostream &operator<<(std::ostream &out, const Grid &g) {
 
-void Grid::unsetBlockType(int r, int c){
-  Grid[r][c].unsetBlockType();
-}*/
+  for (int i = 0; i < 18; ++i) {
+    for (int j = 0; j < 11; ++j) {
+      out << *(g[i][j]);
+    }
+    out << endl;
+  }
+  return out;
+}

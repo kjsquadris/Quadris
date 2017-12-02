@@ -1,4 +1,4 @@
-#ifndef SUBJECT_H
+/*#ifndef SUBJECT_H
 #define SUBJECT_H
 #include <vector>
 #include "observer.h"
@@ -31,4 +31,4 @@ void Subject::notifyObservers() {
 }
 
 
-#endif
+#endif*/

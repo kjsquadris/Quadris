@@ -1,4 +1,4 @@
-#ifndef _OBSERVER_H_
+/*#ifndef _OBSERVER_H_
 #define _OBSERVER_H_
 
 class Observer {
@@ -7,4 +7,4 @@ class Observer {
   virtual ~Observer() = default;
 
 };
-#endif
+#endif*/

@@ -2,25 +2,9 @@
 
 using namespace std;
 
-TextDisplay::TextDisplay(Board b) { //constructor
+TextDisplay::TextDisplay(Board *b) b{b} {} //constructor
 
-  string next = b.getNext();
-  int currScore = b.s->getCurrentScore();
-  int HiScore = b.s->getHiScore();
-  int lvl = b.getLevel();
-
-  int i, j;
-  for (i = 0; i < 18; ++i) {
-    vector <char> row;
-    for (j = 0; j < 11; ++j) {
-      char cell = ' ';
-      row.emplace_back(cell);
-    }
-    theDisplay.emplace_back(row);
-  }
-}
-
-string Textdisplay::getNextBlock(){return next;}
+/*string Textdisplay::getNextBlock(){return next;}
 int Textdisplay::getHiScore(){return HiScore;}
 int Textdisplay::getCurrScore(){return currScore;}
 int Textdisplay::getLevel(){return lvl;}
@@ -28,10 +12,10 @@ int Textdisplay::getLevel(){return lvl;}
 void Textdisplay::setNextBlock(string s) {next = s;}
 void Textdisplay::setHiScore(int hs) {HiScore = hs;}
 void Textdisplay::setCurrScore(int sc) {currScore = sc;}
-void Textdisplay::setLevel(int l) {lvl = l;}
+void Textdisplay::setLevel(int l) {lvl = l;}*/
 
 
-void Textdisplay::notify(Subject &FromCell) {
+/*void Textdisplay::notify(Subject &FromCell) {
   int r = FromCell.getCoord().row;
   int c = FromCell.getCoord().col;
 
@@ -52,53 +36,42 @@ void Textdisplay::notify(Subject &FromCell) {
   } else { //None
     theDisplay[r][c] = ' ';
   }
-}
+}*/
 
-
-ostream &operator<<(std::ostream &out, const TextDisplay &td){
-  out << "Level:" << "   " << td.getLevel() << endl; //current level
-  out << "Score:" << "   " << td.getCurrScore() << endl; //current game's score
-  out << "HiScore:" << "   " << td.getHiScore() << endl; //Hiscore
+void TextDisplay::drawBoard() {
+  cout << "Level:" << "   " << b->getLevel() << endl; //current level
+  cout << "Score:" << "   " << b->getCurrentScore() << endl; //current game's score
+  cout << "HiScore:" << "   " << b->getHiScore() << endl; //HiScore
 
   for (int i = 0; i < 11; ++i) { //top border
-    out << _ << endl;
+    cout << _ << endl;
   }
 
-  for (int r = 0; r < 18; ++r) { //print out actual board
-    if (r != 0) {
-      out << endl;
-    }
-    for (int c = 0; c < 11; ++c) {
-      out << td.theDisplay[r][c];
-    }
-  }
+  cout << b.getGrid() << endl;
 
   for (int i = 0; i < 11; ++i) { //bottom border
     out << _ << endl;
   }
 
-  out << "Next:" << endl;
-
-  if (td.getNextBlock() == "jBlock") { //prints out next block
-    out << 'J' << endl;
-    out << 'JJJ' << endl;
-  } else if (td.getNextBlock() == "oBlock") {
-    out << 'OO' << endl;
-    out << 'OO' << endl;
-  } else if (td.getNextBlock() == "tBlock") {
-    out << 'TTT' << endl;
-    out << ' T ' << endl;
-  } else if (td.getNextBlock() == "lBlock") {
-    out << '  L' << endl;
-    out << 'LLL' << endl;
-  } else if (td.getNextBlock() == "iBlock") {
-    out << 'IIII' << endl;
-  } else if (td.getNextBlock() == "sBlock") {
-    out << ' SS' << endl;
-    out << 'SS' << endl;
-  } else if (td.getNextBlock() == "zBlock") {
-    out << 'ZZ' << endl;
-    out << ' ZZ' << endl;
+  if (b->getNextBlock() == "J") { //prints out next block
+    cout << "J" << endl;
+    cout << "JJJ" << endl;
+  } else if (b->getNextBlock() == "O") {
+    cout << "OO" << endl;
+    cout << "OO" << endl;
+  } else if (b->getNextBlock() == "T") {
+    cout << "TTT" << endl;
+    cout << " T " << endl;
+  } else if (b->getNextBlock() == "L") {
+    cout << "  L" << endl;
+    cout << "LLL" << endl;
+  } else if (b->getNextBlock() == "I") {
+    cout << "IIII" << endl;
+  } else if (b->getNextBlock() == "S") {
+    cout << " SS" << endl;
+    cout << "SS" << endl;
+  } else if (b->getNextBlock() == "Z") {
+    cout << "ZZ" << endl;
+    cout << " ZZ" << endl;
   }
-  return out;
 }

@@ -22,12 +22,12 @@ Coordinate Cell::getCoord() {
 
 void Cell::set(string b) {
   blockType = b;
-  notifyObservers();
+  //notifyObservers();
 }
 
 void Cell::unset() {
   blockType = "None";
-  notifyObservers();
+  //notifyObservers();
 }
 
 bool Cell::isOccupied() {
@@ -40,5 +40,14 @@ bool Cell::isOccupied() {
 
 void Cell::moveDown() {
   row+=1;
-  notifyObservers();
+  //notifyObservers();
+}
+
+std::ostream &operator<<(std::ostream &out, const Cell &c) {
+  if (blockType == "None") {
+    out << " ";
+  } else {
+    out << blockType;
+  }
+  return out;
 }

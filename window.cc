@@ -2,6 +2,7 @@
 #include <X11/Xutil.h>
 #include <iostream>
 #include <cstdlib>
+#include <sstream>
 #include <string>
 #include <unistd.h>
 #include "window.h"
@@ -31,7 +32,8 @@ Xwindow::Xwindow(int width, int height) {
   // Set up colours.
   XColor xcolour;
   Colormap cmap;
-  char color_vals[10][10]={"white", "plum", "salmon", "lavender", "honeydew", "aquamarine", "gainsboro", "light green", "pale turquoise", "black"};
+  char color_vals[10][20]={"white", "plum", "salmon", "khaki", "palegreen", "mediumaquamarine",
+    "sandybrown", "lightskyblue", "mediumpurple", "dimgray"};
 
   cmap=DefaultColormap(d,DefaultScreen(d));
   for(int i=0; i < 10; ++i) {
@@ -65,6 +67,39 @@ void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
   XSetForeground(d, gc, colours[Black]);
 }
 
-void Xwindow::drawString(int x, int y, string msg) {
-  XDrawString(d, w, DefaultGC(d, s), x, y, msg.c_str(), msg.length());
+void Xwindow::drawString(int x, int y, string msg, int colour) {
+  XSetForeground(d, gc, colours[colour]);
+  ostringstream name;
+  name << "-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-4";
+  XFontStruct *f = XLoadQueryFont(d,name.str().c_str());
+  XTextItem ti;
+  ti.chars = const_cast<char*>(msg.c_str());
+  ti.nchars = msg.length();
+  ti.delta = 0;
+  ti.font = f->fid;
+  XDrawText(d, w, gc, x, y, &ti, 1);
+  XSetForeground(d, gc, colours[Black]);
+  XFlush(d);
+}
+
+void Xwindow::drawBigString(int x, int y, string msg, int colour) {
+  XSetForeground(d, gc, colours[colour]);
+  ostringstream name;
+  name << "-misc-fixed-medium-r-normal--20-200-75-75-c-100-koi8-r";
+  XFontStruct * f = XLoadQueryFont(d, name.str().c_str());
+  XTextItem ti;
+  ti.chars = const_cast<char*>(msg.c_str());
+  ti.nchars = msg.length();
+  ti.delta = 0;
+  ti.font = f->fid;
+  XDrawText(d, w, gc, x, y, &ti, 1);
+  XSetForeground(d, gc, colours[Black]);
+  XFlush(d);
+}
+
+void Xwindow::showAvailableFonts() {
+  int count;
+  char** fnts = XListFonts(d, "*", 10000, &count);
+
+  for (int i = 0; i < count; ++i) cout << fnts[i] << endl;
 }

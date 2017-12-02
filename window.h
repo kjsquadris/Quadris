@@ -12,14 +12,17 @@ public:
   Xwindow(const Xwindow&) = delete;
   Xwindow &operator=(const Xwindow&) = delete;
 
-  enum {White=0, Plum, Salmon, Lavender, Honeydew, Aquamarine, Gainsboro, Light Green, Pale Turquoise, Black}; // Available colours.
+  enum {White=0, DimGray, Plum, Salmon, Khaki, PaleGreen, MediumAquamarine, LightSkyBlue, SandyBrown, 
+    MediumPurple}; // Available colours.
 
   // Draws a rectangle
-  void fillRectangle(int x, int y, int width, int height, int colour=Black);
+  void fillRectangle(int x, int y, int width, int height, int colour=DimGray);
 
   // Draws a string
-  void drawString(int x, int y, std::string msg);
+  void drawString(int x, int y, std::string msg, int colour=DimGray);
 
+  //Draws a string
+  void drawBigString(int x, int y, std::string msg, int colour=DimGray);
 };
 
 

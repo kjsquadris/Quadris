@@ -22,7 +22,6 @@ public:
   void setGameOver(bool over);
   bool getGameOver();
   int rowScore(); //updates score based on rows cleared
-  bool rowFull(int r); //checks if a row is full. r is the row number you wanna check
   void blockScore(Score *sc, Block *b); //updates score when block is cleared
   //void setBlockType(int r, int c, Block b); //calls cell's setBlockType at {r, c}
   //void unsetBlockType(int r, int c); //calls cell's unsetBlockType at {r, c}

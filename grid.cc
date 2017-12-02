@@ -50,15 +50,7 @@ int Grid::rowScore(){//updates score based on rows cleared
   }
   return track;
 }
-
-bool Grid::rowFull(int r) {
-  for (int i = 0; i < 11; ++i) {
-    if (theGrid[r][i].getBlockType() == "None") {
-      return false;
-    }
-  }
-  return true;
-}
+i
 
 void Grid::blockScore(Score *sc, Block *b) {
   if(b->isEmpty() == true) {

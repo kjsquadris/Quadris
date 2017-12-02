@@ -36,7 +36,7 @@ void setGameOver(bool over) {GameOver = over;}
 
 bool getGameOver() {return GameOver;}
 
-void Grid::rowScore(Level *lvl, Score *sc){//updates score based on rows cleared
+int Grid::rowScore(){//updates score based on rows cleared
   int track = 0;
   for (auto row : theGrid) {  //goes through each row of the grid
     bool empCell = false;
@@ -46,24 +46,30 @@ void Grid::rowScore(Level *lvl, Score *sc){//updates score based on rows cleared
         break;
       }
     }
-    if (empCell = false) ++track; //after going through all cells in a row, if none is None, increase track by 1
+    if (empCell == false) ++track; //after going through all cells in a row, if none is None, increase track by 1
   }
-  if (track > 0) {
-    int l = lvl->getLevel();
-    sc->rowClear(track, l);
-  }
+  return track;
 }
 
-void Grid::blockScore(Score *sc, Block b) {
-  if(b.isEmpty() == true) {
+bool Grid::rowFull(int r) {
+  for (int i = 0; i < 11; ++i) {
+    if (theGrid[r][i].getBlockType() == "None") {
+      return false;
+    }
+  }
+  return true;
+}
+
+void Grid::blockScore(Score *sc, Block *b) {
+  if(b->isEmpty() == true) {
     sc->blockClear(b);
   }
 }
 
-void Grid::setBlockType(int r, int c, Block b){
+/*void Grid::setBlockType(int r, int c, Block b){
   Grid[r][c].setBlockType(b.getType());
 }
 
 void Grid::unsetBlockType(int r, int c){
   Grid[r][c].unsetBlockType();
-}
+}*/

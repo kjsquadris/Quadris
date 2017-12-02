@@ -12,7 +12,7 @@ public:
   Xwindow(const Xwindow&) = delete;
   Xwindow &operator=(const Xwindow&) = delete;
 
-  //enum {White=0, Black, Red, Green, Blue}; // Available colours.
+  enum {White=0, Plum, Salmon, Lavender, Honeydew, Aquamarine, Gainsboro, Light Green, Pale Turquoise, Black}; // Available colours.
 
   // Draws a rectangle
   void fillRectangle(int x, int y, int width, int height, int colour=Black);

@@ -9,12 +9,12 @@
 class GraphicDisplay: public Observer {
   const int gridSize, winSize;
   XWindow xw;
-  string nextBlock;
+  string next;
   int HiScore;
   int curScore;
 
 public:
-  GraphicDisplay(int gridSize, int winSize);
+  GraphicDisplay(int gridSize, int winSize, Board b);
 
   void setNextBlock(Block *b);
   void updateScore(Score s);

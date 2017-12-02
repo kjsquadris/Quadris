@@ -2,7 +2,7 @@
 #define GRID_H
 #include <iostream>
 #include <vector>
-#include <memory>
+#include <map>
 #include "graphicsdisplay.h"
 #include "grid.h"
 #include "cell.h"
@@ -12,6 +12,7 @@
 
 class Grid {
   std::vector<std::vector<Cell>> theGrid; //actual Grid
+  //std::map<int, Block*> bmap;
   bool GameOver;
 
 public:
@@ -20,10 +21,11 @@ public:
   void init(TextDisplay *td, Observer *ob);
   void setGameOver(bool over);
   bool getGameOver();
-  void rowScore(Level *lvl, Score *sc); //updates score based on rows cleared
-  void blockScore(Score *sc, Block b); //updates score when block is cleared
-  void setBlockType(int r, int c, Block b); //calls cell's setBlockType at {r, c}
-  void unsetBlockType(int r, int c); //calls cell's unsetBlockType at {r, c}
+  int rowScore(); //updates score based on rows cleared
+  bool rowFull(int r); //checks if a row is full. r is the row number you wanna check
+  void blockScore(Score *sc, Block *b); //updates score when block is cleared
+  //void setBlockType(int r, int c, Block b); //calls cell's setBlockType at {r, c}
+  //void unsetBlockType(int r, int c); //calls cell's unsetBlockType at {r, c}
 
 };
 

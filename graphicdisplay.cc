@@ -15,7 +15,7 @@ GraphicDisplay::showDisplay() {
 
   xw.drawString(1*cellSize, 25*cellSize, "Q U A D R I S", Xwindow::DimGray);
 
-  //xw.drawString( , , "Level: ", Xwindow::DimGray);
+  //xw.drawString(6*cellSize, , "Level: ", Xwindow::DimGray);
 
 
 

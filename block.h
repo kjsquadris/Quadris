@@ -28,15 +28,14 @@ public:
   // virtual void rotateCCW() = 0;
 
   // default methods for all blocks
-  virtual ~Block();
   virtual void removeCell(Coordinate c);
   virtual void setHeaviness();
   virtual int getHeaviness();
   virtual int getLevel();
   // virtual std::vector<std::unique_ptr<Cell>> getCells();
-  virtual std::vector<Cell*> getBlockCells();
+  // virtual std::vector<Cell*> getBlockCells();
   virtual bool isEmpty();
-  virtual std::vector<Coordinate> createCoords();
+  // virtual std::vector<Coordinate> createCoords();
   virtual bool inBlock(int, int);
   virtual bool isValidShift(std::string dir);  
   virtual bool shift(std::string dir, bool isDrop);

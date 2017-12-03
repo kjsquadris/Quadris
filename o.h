@@ -1,6 +1,7 @@
 #ifndef O_H
 #define O_H
 #include <vector>
+#include <map>
 #include <string>
 #include "block.h"
 
@@ -18,7 +19,7 @@ class O : public Block {
   int heaviness;
   int width = 2;
   int height = 2;
-  std::string type = "oBlock";
+  std::string type = "O";
 public:
   O(Grid* gameGrid, int blockid, int lvl);
   // bool isValidRotate(std::string dir) override;

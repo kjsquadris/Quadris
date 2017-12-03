@@ -19,25 +19,45 @@ class Board {
   std::unique_ptr<Block> nextBlock; // points to the next block
   unsigned int seed;
   int numBlocks = 0;
+  int lvlfourBlocks; // keeps track of the number of blocks dropped in level 4
+  int lvlfourRows; // keeps track of # of rows cleared in level 4
   bool isSeedAvailable;
   std::string scriptfile;
 public:
-  Board();
+  // creation of board
+  Board(std::string scriptfile, int level);
+  Board(unsigned int seed, std::string scriptfile, int level);
   void init();
-  void rowsCleared();
+
+  // getters
+  int getLevel();
+  Grid* getGrid() {};
+  std::string getNextBlock() {};
+
+  // for gameover purposes
+  bool checkStartPos();
   bool gameOver();
+  void restart();
+
+  // for scoring purposes
+  void rowClearScore(int rowsCleared);
+  void blockClearScore(Block b);
+  int getHiScore();
+  int getCurrentScore();
+
+  // moves
   void moveLeft();
   void moveRight();
   void moveDown();
   void rotateCW();
   void rotateCCW();
   void drop();
-  void levelUp();
-  void levelDown();
-  void restart();
   void replaceBlock(std::string s);
   void hint();
-};
 
+  // change level
+  void levelUp();
+  void levelDown();
+};
 
 #endif

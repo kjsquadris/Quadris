@@ -19,7 +19,7 @@ class L : public Block {
   int heaviness;
   int width = 3;
   int height = 2;
-  std::string type = "lBlock";
+  std::string type = "L";
 public:
   L(Grid* gameGrid, int blockid, int lvl);
   void updateStates();

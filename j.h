@@ -19,7 +19,7 @@ class J : public Block {
   int heaviness;
   int width = 3;
   int height = 2;
-  std::string type = "jBlock";
+  std::string type = "J";
 public:
   J(Grid* gameGrid, int blockid, int lvl);
   void updateStates();

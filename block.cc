@@ -6,9 +6,6 @@
 
 using namespace std;
 
-// destructor
-Block::~Block() {}
-
 // remove cell from the block that will be cleared with a row
 void Block::removeCell(Coordinate c) {
   for (int i = 0; i < 4; ++i) {
@@ -37,10 +34,11 @@ int Block::getLevel() {
   return level;
 }
 
-// returns the cells of the block
-vector<Cell*> Block::getBlockCells() {
-  return cells;
-}
+// //TODO: check if this is needed
+// // returns the cells of the block
+// vector<Cell*> Block::getBlockCells() {
+//   return cells;
+// }
 
 // checks if the block's cells are all cleared
 bool Block::isEmpty() {
@@ -49,76 +47,66 @@ bool Block::isEmpty() {
 }
 
 // create a vector with all the coordinates of the current cells of the block
-vector<Coordinate> Block::createCoords() {
-  vector<Coordinate> coords;
-
-  for (int i = 0; i < 4; ++i) {
-    Coordinate c;
-    c.row = cells[i]->row;
-    c.col = cells[i]->col;
-    coords.emplace_back(c);
-  }
-  return coords;
-}
+// vector<Coordinate> Block::createCoords() {
+//   vector<Coordinate> coords;
+//
+//   for (int i = 0; i < 4; ++i) {
+//     Coordinate c;
+//     c.row = cells[i]->row;
+//     c.col = cells[i]->col;
+//     coords.emplace_back(c);
+//   }
+//   return coords;
+// }
 
 // check whether a cell is inside the block
 bool Block::inBlock(int x, int y) {
-  vector<Coordinate> coords = createCoords(); // hold the coordinates of curr cells
-  bool in = false;
+  // vector<Coordinate> coords = createCoords(); // hold the coordinates of curr cells
 
   for (int i = 0; i < 4; ++i) {
-    if ((coords[i].row == x) && (coords[i].col == y)) {
-      in = true;
-      break;
+    if ((cells[i]->row == x) && (cells[i]->col == y)) {
+      return true;
     }
   }
-  return in;
+  return false;
 }
 
 // check if the cell the block is trying to shift into is occupied or not
 // (only checks for left, right, down shift)
 bool Block::isValidShift(string dir) {
-  vector<Coordinate> coords = createCoords(); // hold the coordinates of curr cells
+  // vector<Coordinate> coords = createCoords(); // hold the coordinates of curr cells
   vector<vector<Cell>> gridcells = g->getCells(); // hold the cells of the grid
 
-  bool valid = true;
-  if ((dir != "left") && (dir != "right") && (dir != "down")) {
-    return false;
-  } else {
-    for (int i = 0; i < 4; ++i) {
-      // find coordinates of the new potential cell of the block
-      int x = coords[i].row;
-      int y = coords[i].col;
-      if (dir == "left") {
-        y -= 1;
-      } else if (dir == "right") {
-        y += 1;
-      } else if (dir == "down") {
-        x += 1;
-      }
+  for (int i = 0; i < 4; ++i) {
+    // find coordinates of the new potential cell of the block
+    int x = cells[i]->row;
+    int y = cells[i]->col;
+    if (dir == "left") {
+      y -= 1;
+    } else if (dir == "right") {
+      y += 1;
+    } else if (dir == "down") {
+      x += 1;
+    }
 
-      if ((y < 0) || (y > 10) || (x > 17)) { // check if cell is not on board
-        valid = false;
-        break;
-      } else if (gridcells[x][y].isOccupied()) { // check if cell is occupied
-        if (inBlock(x,y)) { // check if occupied cell is part of the same block
-          continue;
-        } else { // if not then invalid move
-          valid = false;
-          break;
-        }
-      } else { // unoccupied
-        continue;
+    if ((y < 0) || (y > 10) || (x > 17)) { // check if cell is not on board
+      return false;
+    } else if (gridcells[x][y].isOccupied()) { // check if cell is occupied
+
+      // check if occupied cell is part of the same block
+      if (!inBlock(x,y)) {
+        return false;;
       }
     }
   }
-  return valid;
+  return true;
 }
 
 // shift the block (returns true/false for drop)
 bool Block::shift(string dir, bool isDrop) {
   int x,y;
   if (isValidShift(dir)) {
+    unset();
     for (int i = 0; i < 4; ++i) {
       if (dir == "left") {
         x = cells[i]->row;
@@ -151,52 +139,41 @@ bool Block::shift(string dir, bool isDrop) {
 
 // check if it's possible to rotate
 bool Block::isValidRotate(string dir) {
-  int x, y;
-  bool valid = true;
-  int newState;
+  int x, y, newState;
   vector<vector<Cell>> gridcells = g->getCells();
 
-  if ((dir != "cw") && (dir != "ccw")) { //invalid direction
-    return false;
-  } else {
-    if (dir == "cw") { // rotate clockwise
+  if (dir == "cw") { // rotate clockwise
 
-      // decide which state to go to
-      if (currState == numStates - 1) { // go back to first state
-        newState = 0;
-      } else { // go forward with states 0->1, 1->2, etc.
-        newState = currState + 1;
-      }
-    } else { // rotate counter clockwise
+    // decide which state to go to
+    if (currState == numStates - 1) { // go back to first state
+      newState = 0;
+    } else { // go forward with states 0->1, 1->2, etc.
+      newState = currState + 1;
+    }
+  } else { // rotate counter clockwise
 
-      // decide which state to go to
-      if (currState == 0) { // go to final state
-        newState = numStates - 1;
-      } else { // go backward with states 1->0, 2->1, etc.
-        newState = currState - 1;
-      }
+    // decide which state to go to
+    if (currState == 0) { // go to final state
+      newState = numStates - 1;
+    } else { // go backward with states 1->0, 2->1, etc.
+      newState = currState - 1;
     }
   }
+
 
   // check if each cell in the next rotation is valid for rot to happen
   for (int i = 0; i < 4; ++i) {
     x = states[newState][i].row;
     y = states[newState][i].col;
     if ((y < 0) || (y > 10) || (x > 17)) { // check if cell is not on board
-      valid = false;
-      break;
+      return false;
     } else if (gridCells[x][y].isOccupied()) { // check if cell is occupied
-      if (inBlock(x, y)) { // see if the cell is part of this block
-        continue;
-      } else { // if not part of this block, rotate is invalid
-        valid = false;
-        break;
+      if (!inBlock(x, y)) { // see if the cell is part of this block
+        return false;
       }
-    } else {
-      continue;
     }
   }
-  return valid;
+  return true;
 }
 
 void Block::rotate(string dir) {
@@ -239,9 +216,8 @@ void Block::rotate(string dir) {
 
 // move the block as far down as it can go without overtaking another cell
 void Block::drop() {
-  while (shift("down", true)) { // continue shifting down until it's not possible
-    continue;
-  }
+  // continue shifting down until it's not possible
+  while (shift("down", true)) {}
   set();
 }
 

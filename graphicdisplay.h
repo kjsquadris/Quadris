@@ -3,6 +3,7 @@
 #include <string>
 #include "window.h"
 #include "block.h"
+#include "board.h"
 #include "score.h"
 //#include "subject.h"
 
@@ -10,8 +11,8 @@ class GraphicDisplay {
   const int cellSize = 40; //each cell dimension
   const int gridHeight = 1000; //height of entire window
   const int gridWidth = 900; //width of entire window
-  const int subHeight = 720; //height of just quadris grid
-  const int subWidth = 440; //width of just quadris grid
+  /*const int subHeight = 720; //height of just quadris grid
+  const int subWidth = 440; //width of just quadris grid*/
   Board *b;
   XWindow xw;
 

@@ -12,11 +12,21 @@ GraphicDisplay::GraphicDisplay(Board *b) b{b}, xw{gridWidth, gridHeight} {
 }
 
 GraphicDisplay::showDisplay() {
+  string temp;
 
-  xw.drawString(1*cellSize, 25*cellSize, "Q U A D R I S", Xwindow::DimGray);
+  xw.drawString(1*cellSize, 13*cellSize, "Q U A D R I S", Xwindow::DimGray);
 
-  //xw.drawString(6*cellSize, , "Level: ", Xwindow::DimGray);
+  xw.drawString(4*cellSize, 12*cellSize, "Level:", Xwindow::DimGray);
+  temp = to_string(b->getLevel());
+  xw.drawString(4*cellSize, 15*cellSize, temp, Xwindow::DimGray);
 
+  xw.drawString(6*cellSize, 12*cellSize, "Score:", Xwindow::DimGray);
+  temp = to_string(b->getCurrentScore());
+  xw.drawString(6*cellSize, 15*cellSize, temp, Xwindow::DimGray);
+
+  xw.drawString(8*cellSize, 12*cellSize, "HiScore:", Xwindow::DimGray);
+  temp = to_string(b->getHiScore());
+  xw.drawString(8*cellSize, 15*cellSize, temp, Xwindow::DimGray);
 
 
   for (int i = 0; i < 18; ++i) {
@@ -41,6 +51,9 @@ GraphicDisplay::showDisplay() {
       }
     }
   }
+
+  xw.drawString(20*cellSize, 3*cellSize, "Next:", Xwindow::DimGray);
+
 
 }
 

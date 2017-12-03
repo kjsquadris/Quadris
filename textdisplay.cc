@@ -75,3 +75,6 @@ void TextDisplay::drawBoard() {
     cout << " ZZ" << endl;
   }
 }
+
+
+void TextDisplay::GameOverMSG(){cout<< "Game Over"}

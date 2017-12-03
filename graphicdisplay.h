@@ -12,18 +12,18 @@ class GraphicDisplay {
   const int gridWidth = 880; //width of entire window
   const int subHeight = 720; //height of just quadris grid
   const int subWidth = 440; //width of just quadris grid
-  string HiScore;
-  string curScore;
-  string lvl;
+  Board *b;
   XWindow xw;
 
 public:
-  GraphicDisplay(Board *b);
+  GraphicDisplay(Board *b); //constructor
 
-  void notify(Subject &fromCell) override;
+  DisplayG();
+
+  //void notify(Subject &fromCell) override;
 
   //setters
-  void setNext(string s);
+  /*void setNext(string s);
   void setHiScore(int hs);
   void setcurScore(int sc);
   void setlvl(int lv);
@@ -31,7 +31,7 @@ public:
   //drawing the fields
   void drawNext();
   void drawScore();
-  void drawlvl();
+  void drawlvl();*/
 };
 
 

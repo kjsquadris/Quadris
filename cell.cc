@@ -6,7 +6,7 @@
 using namespace std;
 
 //constructor
-Cell::Cell(int r, int c) : row{r}, col{c}, blockType{"None"} {}
+Cell::Cell(int r, int c) : row{r}, col{c}, blockType{"None"}, hint{false} {}
 
 // retrieve the type of block cell belongs to
 string Cell::getBlockType() {

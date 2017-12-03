@@ -70,21 +70,6 @@ void Xwindow::fillRectangle(int x, int y, int width, int height, int colour) {
 void Xwindow::drawString(int x, int y, string msg, int colour) {
   XSetForeground(d, gc, colours[colour]);
   ostringstream name;
-  name << "-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-4";
-  XFontStruct *f = XLoadQueryFont(d,name.str().c_str());
-  XTextItem ti;
-  ti.chars = const_cast<char*>(msg.c_str());
-  ti.nchars = msg.length();
-  ti.delta = 0;
-  ti.font = f->fid;
-  XDrawText(d, w, gc, x, y, &ti, 1);
-  XSetForeground(d, gc, colours[Black]);
-  XFlush(d);
-}
-
-void Xwindow::drawBigString(int x, int y, string msg, int colour) {
-  XSetForeground(d, gc, colours[colour]);
-  ostringstream name;
   name << "-misc-fixed-medium-r-normal--20-200-75-75-c-100-koi8-r";
   XFontStruct * f = XLoadQueryFont(d, name.str().c_str());
   XTextItem ti;

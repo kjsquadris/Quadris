@@ -7,6 +7,7 @@
 class Cell {
   int row, col; //coordinates of cell in the graphicdisplay
   string blockType; //type of block the cell belongs to
+  bool hint;
 
 public:
   Cell(int r, int c); //constructor. takes in 2 int to set the coord

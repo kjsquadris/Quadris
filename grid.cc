@@ -14,8 +14,7 @@ Grid::~Grid(){
   this->ob = ob;
   this->td = td;
 }*/
-
-void Grid::init(){
+ Grid::Grid() GameOver{false} {
 
   //set up empty grid
   for (int i = 0; i < 18; ++i) {
@@ -31,7 +30,7 @@ void Grid::init(){
 std::vector<std::vector<Cells>> getCells() {return theGrid;}
 
 
-void clearRow(int r) { //row start at 0 or 1?
+void Grid::clearRow(int r) { //row start at 0 or 1?
   //unattach txtdisplay and graphicdisplay observer at r
   /*for (int i = 0; i < 11; ++i) {
     theGrid[r][i].unattach();
@@ -62,9 +61,9 @@ void clearRow(int r) { //row start at 0 or 1?
 
 }
 
-void setGameOver(bool over) {GameOver = over;}
+void Grid::setGameOver(bool over) {GameOver = over;}
 
-bool getGameOver() {return GameOver;}
+bool Grid::getGameOver() {return GameOver;}
 
 bool Grid::isrowFull(int r) {
   for (int i = 0; i < 11; ++i) {
@@ -75,7 +74,7 @@ bool Grid::isrowFull(int r) {
   return true;
 }
 
-std::ostream &operator<<(std::ostream &out, const Grid &g) {
+ostream &operator<<(std::ostream &out, const Grid &g) {
 
   for (int i = 0; i < 18; ++i) {
     for (int j = 0; j < 11; ++j) {

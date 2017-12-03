@@ -12,7 +12,7 @@ public:
   Xwindow(const Xwindow&) = delete;
   Xwindow &operator=(const Xwindow&) = delete;
 
-  enum {White=0, DimGray, Plum, Salmon, Khaki, PaleGreen, MediumAquamarine, LightSkyBlue, SandyBrown, 
+  enum {White=0, DimGray, Plum, Salmon, Khaki, PaleGreen, MediumAquamarine, LightSkyBlue, SandyBrown,
     MediumPurple}; // Available colours.
 
   // Draws a rectangle
@@ -20,9 +20,6 @@ public:
 
   // Draws a string
   void drawString(int x, int y, std::string msg, int colour=DimGray);
-
-  //Draws a string
-  void drawBigString(int x, int y, std::string msg, int colour=DimGray);
 };
 
 

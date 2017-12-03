@@ -27,6 +27,7 @@ public:
 
  //draws the board
  void drawBoard();
+ void GameOverMSG();
 
 };
 

@@ -3,23 +3,21 @@
 #include <iostream>
 #include <vector>
 #include "graphicsdisplay.h"
-#include "grid.h"
 #include "cell.h"
 #include "textdisplay.h"
-#include "block.h"
-#include "level.h"
 
 class Grid {
+  bool GameOver;
   std::vector<std::vector<Cell>> theGrid; //actual Grid
   /*TextDisplay *td;
   Observer *ob; //for graphics*/
-  bool GameOver;
 
 public:
+  Grid(); //constructor
   ~Grid(); //destructor
 
   //void setObTxt(TextDisplay *td, Observer *ob);
-  void init(); //initialize grid
+  //void init(); //initialize grid
   std::vector<std::vector<Cells>> getCells(); // return theGrid
   void clearRow(int r); //clears row at r
   void setGameOver(bool over); //set GameOver
